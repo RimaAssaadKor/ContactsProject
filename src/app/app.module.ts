@@ -26,12 +26,18 @@ import { MatDialogModule } from '@angular/material/dialog';
 // import { EditContactDialogComponent } from './edit-contact-dialog/edit-contact-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditContactDialogComponent } from './contact/components/edit-contact-dialog/edit-contact-dialog.component';
+import { RegistrationComponent } from './Register/registration/registration.component';
+import { ErrorPageComponent } from './errorPage/error-page/error-page.component';
+import { SigninComponent } from './signIn/signin/signin.component';
 @NgModule({
   declarations: [
     AppComponent,
     ContactComponent,
     NameFilterPipe,
-    EditContactDialogComponent
+    EditContactDialogComponent,
+    RegistrationComponent,
+    ErrorPageComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

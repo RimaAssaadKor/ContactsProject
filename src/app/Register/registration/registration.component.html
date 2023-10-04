@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-title>Register</mat-card-title>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input matInput placeholder="Email" [(ngModel)]="user.email" name="email" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Name" [(ngModel)]="user.password" name="name" required>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Register</button>
+      </form>
+    </mat-card-content>
+    <mat-card>
+        <!-- ... Registration form here ... -->
+        <mat-card-title>Already have account</mat-card-title>
+        <button mat-button color="primary" (click)="goToLogin()">Go to Login</button>
+      </mat-card>
+  </mat-card>
+  
