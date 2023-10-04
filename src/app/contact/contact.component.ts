@@ -17,7 +17,7 @@ export class ContactComponent {
 
   contacts: Contact[] = [];
   displayedColumns: string[] = [
-    'id',
+    
     'name',
     'email',
     'phone',
@@ -31,13 +31,16 @@ export class ContactComponent {
       this.contacts = contacts;
     });
   }
-
+  generateRandomAccount(){
+    this.contactService.generateRandomAccount()
+  }
   addContact(): void {
     if (
       this.newContact.name &&
       this.newContact.email &&
       this.newContact.phone
     ) {
+      this.newContact = { name: '', email: '', phone: '' };
       this.contactService.addContact(this.newContact);
       this.newContact = { id: '', name: '', email: '', phone: '' };
     }

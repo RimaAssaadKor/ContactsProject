@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Contact } from './contact.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {AngularFirestore , AngularFirestoreCollection} from '@angular/fire/compat/firestore'
-
+import { faker } from '@faker-js/faker';
 @Injectable({
   providedIn: 'root',
 })
@@ -66,20 +66,15 @@ export class ContactService {
   }
 
   deleteContact(contact: Contact): void {
-    // const contactToDelete = this.contacts.find(contact => contact.name === contact.name);
-    // const contactId: string = contact.id?.toString();
-    if (contact.id) {
-      this.contactsCollection.doc(contact.id).delete().then(() => {
-        console.log('Deleted');
-      }).catch(error => {
-        console.error('Error deleting document: ', error);
-      });
-    } else {
-      console.error('Contact ID is missing or empty.');
-    }
+    this.contactsCollection.doc(contact.id).delete().then(()=>{
+      console.log("deleted")
+    });
    
   }
-
+generateRandomAccount(){
+  const randomContact = {id:faker.string.uuid(), name: faker.internet.userName(), email: faker.internet.email(), phone: faker.phone.imei() };
+  this.addContact(randomContact)
+}
   searchContact(inputValue: string){
   //   inputValue = inputValue.toLowerCase();
   //   return this.contacts.filter((contact) => {
