@@ -6,11 +6,10 @@
         matInput
         placeholder="Search"
         [(ngModel)]="searchQuery"
-        (input)="searchContact(searchQuery)"
       />
     </mat-form-field>
   </div>
-  <table mat-table [dataSource]="contacts" class="mat-elevation-z8">
+  <table mat-table [dataSource]="contacts | nameFilter: searchQuery" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
       <td mat-cell *matCellDef="let element">
@@ -21,7 +20,7 @@
             (keydown.enter)="onCellBlur(element)"
           />
         </ng-container>
-        <ng-template #displayCell>{{ element.name }}</ng-template>
+        <ng-template #displayCell>{{ element.name | uppercase }}</ng-template>
       </td>
     </ng-container>
 

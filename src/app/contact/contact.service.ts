@@ -75,14 +75,5 @@ generateRandomAccount(){
   const randomContact = {id:faker.string.uuid(), name: faker.internet.userName(), email: faker.internet.email(), phone: faker.phone.imei() };
   this.addContact(randomContact)
 }
-  searchContact(inputValue: string){
-  //   inputValue = inputValue.toLowerCase();
-  //   return this.contacts.filter((contact) => {
-  //     return (
-  //       contact.name.toLowerCase().includes(inputValue) ||
-  //       contact.email.toLowerCase().includes(inputValue) ||
-  //       contact.phone.includes(inputValue)
-  //     );
-  //   });
-   }
+
 }

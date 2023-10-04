@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
 import {AngularFirestore} from '@angular/fire/compat/firestore'
+import { NameFilterPipe } from '../name-filter.pipe';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -17,7 +18,6 @@ export class ContactComponent {
 
   contacts: Contact[] = [];
   displayedColumns: string[] = [
-    
     'name',
     'email',
     'phone',
@@ -56,14 +56,5 @@ export class ContactComponent {
   }
   onCellBlur(contact: Contact): void {
     contact.isEditing = false;
-  }
-  searchContact(query: string): void {
-    // if (query) {
-    //   this.contacts = this.contactService.searchContact(query);
-    // } else {
-    //   this.contactService.getContacts().subscribe((contacts) => {
-    //     this.contacts = contacts;
-    //   });
-    // }
   }
 }
