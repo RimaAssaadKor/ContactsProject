@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
-
+import {AngularFirestore} from '@angular/fire/compat/firestore'
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -9,7 +9,7 @@ import { ContactService } from './contact.service';
 })
 export class ContactComponent {
   newContact: Contact = {
-    id: 0,
+    id: '',
     name: '',
     email: '',
     phone: '',
@@ -39,7 +39,7 @@ export class ContactComponent {
       this.newContact.phone
     ) {
       this.contactService.addContact(this.newContact);
-      this.newContact = { id: 0, name: '', email: '', phone: '' };
+      this.newContact = { id: '', name: '', email: '', phone: '' };
     }
   }
   updateContact(updatedContact: Contact): void {
@@ -55,12 +55,12 @@ export class ContactComponent {
     contact.isEditing = false;
   }
   searchContact(query: string): void {
-    if (query) {
-      this.contacts = this.contactService.searchContact(query);
-    } else {
-      this.contactService.getContacts().subscribe((contacts) => {
-        this.contacts = contacts;
-      });
-    }
+    // if (query) {
+    //   this.contacts = this.contactService.searchContact(query);
+    // } else {
+    //   this.contactService.getContacts().subscribe((contacts) => {
+    //     this.contacts = contacts;
+    //   });
+    // }
   }
 }

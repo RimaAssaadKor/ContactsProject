@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Contact } from './contact.model';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {AngularFirestore , AngularFirestoreCollection} from '@angular/fire/compat/firestore'
+
 @Injectable({
   providedIn: 'root',
 })
@@ -37,42 +39,55 @@ export class ContactService {
       phone: '+96178882716',
     },
   ];
-  constructor() {}
-  private contactsSubject = new BehaviorSubject<Contact[]>(this.contacts);
+  private contactsCollection: AngularFirestoreCollection<Contact>;
+  private contactsSubject = new BehaviorSubject<Contact[]>([]);
+
+  constructor(private firestore: AngularFirestore) {
+    this.contactsCollection = this.firestore.collection<Contact>('contacts');
+    this.contactsCollection.valueChanges().subscribe((contacts: Contact[]) => {
+      this.contactsSubject.next(contacts);
+    });
+  }
+
   getContacts(): Observable<Contact[]> {
     return this.contactsSubject.asObservable();
   }
 
   addContact(contact: Contact): void {
-    contact.id = this.contacts.length + 1;
-    this.contacts.push(contact);
-    this.contactsSubject.next([...this.contacts]);
+    this.contactsCollection.add(contact);
   }
 
   updateContact(updatedContact: Contact): void {
-    const index = this.contacts.findIndex((c) => c.id === updatedContact.id);
-    if (index !== -1) {
-      this.contacts[index] = updatedContact;
-      this.contactsSubject.next([...this.contacts]);
-    }
+    // const index = this.contacts.findIndex((c) => c.id === updatedContact.id);
+    // if (index !== -1) {
+    //   this.contacts[index] = updatedContact;
+    //   this.contactsSubject.next([...this.contacts]);
+    // }
   }
 
   deleteContact(contact: Contact): void {
-    const index = this.contacts.findIndex((c) => c.id === contact.id);
-    if (index !== -1) {
-      this.contacts.splice(index, 1);
-      this.contactsSubject.next([...this.contacts]);
+    // const contactToDelete = this.contacts.find(contact => contact.name === contact.name);
+    // const contactId: string = contact.id?.toString();
+    if (contact.id) {
+      this.contactsCollection.doc(contact.id).delete().then(() => {
+        console.log('Deleted');
+      }).catch(error => {
+        console.error('Error deleting document: ', error);
+      });
+    } else {
+      console.error('Contact ID is missing or empty.');
     }
+   
   }
 
-  searchContact(inputValue: string): Contact[] {
-    inputValue = inputValue.toLowerCase();
-    return this.contacts.filter((contact) => {
-      return (
-        contact.name.toLowerCase().includes(inputValue) ||
-        contact.email.toLowerCase().includes(inputValue) ||
-        contact.phone.includes(inputValue)
-      );
-    });
-  }
+  searchContact(inputValue: string){
+  //   inputValue = inputValue.toLowerCase();
+  //   return this.contacts.filter((contact) => {
+  //     return (
+  //       contact.name.toLowerCase().includes(inputValue) ||
+  //       contact.email.toLowerCase().includes(inputValue) ||
+  //       contact.phone.includes(inputValue)
+  //     );
+  //   });
+   }
 }
