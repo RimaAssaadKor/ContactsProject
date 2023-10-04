@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Contact } from './contact.model';
+import { Contact } from '../models/contact.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {AngularFirestore , AngularFirestoreCollection} from '@angular/fire/compat/firestore'
 import { faker } from '@faker-js/faker';
@@ -7,38 +7,6 @@ import { faker } from '@faker-js/faker';
   providedIn: 'root',
 })
 export class ContactService {
-  public contacts = [
-    {
-      id: 1,
-      name: 'Rima',
-      email: 'rima@gmail.com',
-      phone: '+96171512716',
-    },
-    {
-      id: 2,
-      name: 'Mirna',
-      email: 'Mirna@gmail.com',
-      phone: '+96171812716',
-    },
-    {
-      id: 3,
-      name: 'SUSU',
-      email: 'susu@gmail.com',
-      phone: '+96179872716',
-    },
-    {
-      id: 4,
-      name: 'Karim',
-      email: 'karim@gmail.com',
-      phone: '+96171590906',
-    },
-    {
-      id: 5,
-      name: 'Lea',
-      email: 'lea@gmail.com',
-      phone: '+96178882716',
-    },
-  ];
   private contactsCollection: AngularFirestoreCollection<Contact>;
   private contactsSubject = new BehaviorSubject<Contact[]>([]);
 
@@ -63,12 +31,13 @@ export class ContactService {
     //   this.contacts[index] = updatedContact;
     //   this.contactsSubject.next([...this.contacts]);
     // }
+    // this.contactsCollection.doc(updatedContact.id).update(data)
   }
 
   deleteContact(contact: Contact): void {
-    this.contactsCollection.doc(contact.id).delete().then(()=>{
-      console.log("deleted")
-    });
+    // this.contactsCollection.doc(contact).delete().then(()=>{
+    //   console.log("deleted")
+    // });
    
   }
 generateRandomAccount(){

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ContactComponent } from './contact/contact.component';
+import { ContactComponent } from './contact/components/contacts/contact.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,12 +22,16 @@ import { AngularFireModule } from '@angular/fire/compat'
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { NameFilterPipe } from './name-filter.pipe';
-
+import { MatDialogModule } from '@angular/material/dialog';
+// import { EditContactDialogComponent } from './edit-contact-dialog/edit-contact-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EditContactDialogComponent } from './contact/components/edit-contact-dialog/edit-contact-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     ContactComponent,
-    NameFilterPipe
+    NameFilterPipe,
+    EditContactDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,9 @@ import { NameFilterPipe } from './name-filter.pipe';
     MatIconModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatDialogModule,
+    ReactiveFormsModule
     
   ],
   providers: [],

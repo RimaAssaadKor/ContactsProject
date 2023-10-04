@@ -1,0 +1,18 @@
+<div style="padding: 20px;">
+<h2>Edit Contact</h2>
+<form>
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="data.name" name="name" required />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Email" [(ngModel)]="data.email" name="email" required />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Phone" [(ngModel)]="data.phone" name="phone" required />
+  </mat-form-field>
+  <div class="dialog-buttons">
+    <button mat-raised-button color="primary" (click)="saveChanges()">Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </div>
+</form>
+</div>
