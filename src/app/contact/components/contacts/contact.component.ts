@@ -13,6 +13,7 @@ import { EditContactDialogComponent } from '../edit-contact-dialog/edit-contact-
 export class ContactComponent {
   @Output() selectedOne : any
   newContact: Contact = {
+    id:'',
     name: '',
     email: '',
     phone: '',
@@ -26,7 +27,7 @@ export class ContactComponent {
     'delete',
     'edit',
   ];
-  constructor(private contactService: ContactService , public dialog: MatDialog) {}
+  constructor(private contactService: ContactService , public dialog: MatDialog , private afs  : AngularFirestore) {}
   searchQuery: string = '';
   ngOnInit(): void {
     this.contactService.getContacts().subscribe((contacts: Contact[]) => {
@@ -42,8 +43,9 @@ export class ContactComponent {
       this.newContact.email &&
       this.newContact.phone
     ) {
+      this.newContact.id = this.afs.createId()
       this.contactService.addContact(this.newContact);
-      this.newContact = {name: '', email: '', phone: '' };
+      this.newContact = {id: '',name: '', email: '', phone: '' };
     }
   }
   updateContact(updatedContact: Contact): void {

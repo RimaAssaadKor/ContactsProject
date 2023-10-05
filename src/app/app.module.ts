@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
+import { environment } from 'src/environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideRemoteConfig,getRemoteConfig } from '@angular/fire/remote-config';
@@ -29,6 +29,16 @@ import { EditContactDialogComponent } from './contact/components/edit-contact-di
 import { RegistrationComponent } from './Register/registration/registration.component';
 import { ErrorPageComponent } from './errorPage/error-page/error-page.component';
 import { SigninComponent } from './signIn/signin/signin.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TranslocoRootModule } from './transloco-root.module';
+import { TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
+import { ChooseLanguageComponent } from './choose-language/choose-language.component';
+const translocoConfig = {
+  availableLangs: ['en', 'fr'],
+  defaultLang: 'en',
+  reRenderOnLangChange: true,
+  fallbackLang: 'en',
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +47,8 @@ import { SigninComponent } from './signIn/signin/signin.component';
     EditContactDialogComponent,
     RegistrationComponent,
     ErrorPageComponent,
-    SigninComponent
+    SigninComponent,
+    ChooseLanguageComponent
   ],
   imports: [
     BrowserModule,
@@ -53,10 +64,13 @@ import { SigninComponent } from './signIn/signin/signin.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    TranslocoRootModule,
+    TranslocoModule,
     
   ],
-  providers: [],
+  providers: [{ provide: TRANSLOCO_CONFIG, useValue: translocoConfig  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

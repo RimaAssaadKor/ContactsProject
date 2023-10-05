@@ -1,4 +1,5 @@
 <mat-card>
+  <!-- <p>{{ 'welcome' | transloco }}</p> -->
     <mat-card-title>Register</mat-card-title>
     <mat-card-content>
       <form (ngSubmit)="onSubmit()">
@@ -12,7 +13,6 @@
       </form>
     </mat-card-content>
     <mat-card>
-        <!-- ... Registration form here ... -->
         <mat-card-title>Already have account</mat-card-title>
         <button mat-button color="primary" (click)="goToLogin()">Go to Login</button>
       </mat-card>

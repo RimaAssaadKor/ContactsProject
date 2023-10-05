@@ -22,7 +22,9 @@ export class ContactService {
   }
 
   addContact(contact: Contact): void {
-    this.contactsCollection.add(contact);
+
+    this.contactsCollection.doc(contact.id).set(contact,{merge:true})
+    // add(contact);
   }
 
   updateContact(updatedContact: Contact): void {
@@ -31,14 +33,13 @@ export class ContactService {
     //   this.contacts[index] = updatedContact;
     //   this.contactsSubject.next([...this.contacts]);
     // }
-    // this.contactsCollection.doc(updatedContact.id).update(data)
+     this.contactsCollection.doc(updatedContact.id).update(updatedContact)
   }
 
   deleteContact(contact: Contact): void {
-    // this.contactsCollection.doc(contact).delete().then(()=>{
-    //   console.log("deleted")
-    // });
-   
+    this.contactsCollection.doc(contact.id).delete().then(()=>{
+      console.log("deleted")
+    });
   }
 generateRandomAccount(){
   const randomContact = {id:faker.string.uuid(), name: faker.internet.userName(), email: faker.internet.email(), phone: faker.phone.imei() };

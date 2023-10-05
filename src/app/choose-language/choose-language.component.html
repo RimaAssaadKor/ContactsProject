@@ -1,0 +1,6 @@
+<div style="padding: 20px;">
+<label>choose language</label>
+<select id="language-select" [(ngModel)]="selectedLang" (change)="changeLanguage(selectedLang)">
+    <option *ngFor="let lang of availableLangs" [value]="lang">{{ lang }}</option>
+</select>
+</div>
