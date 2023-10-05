@@ -5,6 +5,7 @@ import {AngularFirestore} from '@angular/fire/compat/firestore'
 import { NameFilterPipe } from '../../../name-filter.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { EditContactDialogComponent } from '../edit-contact-dialog/edit-contact-dialog.component';
+import { FormGroup, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -18,12 +19,18 @@ export class ContactComponent {
     email: '',
     phone: '',
   };
-
+  contactForm  = new FormGroup({
+    id: new FormControl(''),
+    name: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl(''), 
+    address :new FormControl(''), });
   contacts: Contact[] = [];
   displayedColumns: string[] = [
     'name',
     'email',
     'phone',
+    'address',
     'delete',
     'edit',
   ];
@@ -38,28 +45,32 @@ export class ContactComponent {
     this.contactService.generateRandomAccount()
   }
   addContact(): void {
-    if (
-      this.newContact.name &&
-      this.newContact.email &&
-      this.newContact.phone
-    ) {
-      this.newContact.id = this.afs.createId()
-      this.contactService.addContact(this.newContact);
-      this.newContact = {id: '',name: '', email: '', phone: '' };
+    if (this.contactForm.valid) {
+      const newContactData: Contact = {
+        id: this.afs.createId(),
+        name: this.contactForm.get('name')?.value || '',   // Use the safe navigation operator and provide a default value
+        email: this.contactForm.get('email')?.value || '', // Use the safe navigation operator and provide a default value
+        phone: this.contactForm.get('phone')?.value || '', // Use the safe navigation operator and provide a default value
+        address: this.contactForm.get('address')?.value || ''
+      };
+
+      this.contactService.addContact(newContactData);
+      this.contactForm.reset();
     }
   }
+  
   updateContact(updatedContact: Contact): void {
     this.contactService.updateContact(updatedContact);
   }
   deleteContact(contact: Contact): void {
     this.contactService.deleteContact(contact);
   }
-  editContact(contact: Contact): void {
-    contact.isEditing = true;
-  }
-  onCellBlur(contact: Contact): void {
-    contact.isEditing = false;
-  }
+  // editContact(contact: Contact): void {
+  //   contact.isEditing = true;
+  // }
+  // onCellBlur(contact: Contact): void {
+  //   contact.isEditing = false;
+  // }
   openDialog(contactData: any): void {
     if (contactData) {
       console.log("contactData", contactData);

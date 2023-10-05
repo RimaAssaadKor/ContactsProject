@@ -64,45 +64,37 @@
       padding: 2rem;
     "
   >
-    <form (submit)="addContact()">
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Name"
-          [(ngModel)]="newContact.name"
-          name="name"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Email"
-          [(ngModel)]="newContact.email"
-          name="email"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Phone"
-          [(ngModel)]="newContact.phone"
-          name="phone"
-          required
-        />
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">
-        Add Contact
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="generateRandomAccount()"
-      >
-        Random Contact
-      </button>
-    </form>
+  <form [formGroup]="contactForm" (submit)="addContact()">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" id="first-name">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" formControlName="email" id="last-name">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput type="text" formControlName="phone" id="phone">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Address</mat-label>
+      <input matInput type="text" formControlName="address" id="address">
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      Add Contact
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="generateRandomAccount()"
+    >
+      Random Contact
+    </button>
+  </form>
+
   </div>
   <!-- <app-choose-language></app-choose-language> -->
 </div>
