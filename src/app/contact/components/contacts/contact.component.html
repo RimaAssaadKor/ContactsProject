@@ -39,6 +39,15 @@
         <ng-template #displayCell>{{ element.phone }}</ng-template>
       </td>
     </ng-container>
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Address</th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.isEditing; else displayCell">
+          <input [(ngModel)]="element.address" />
+        </ng-container>
+        <ng-template #displayCell>{{ element.address }}</ng-template>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef>Delete</th>
       <td mat-cell *matCellDef="let element">
@@ -94,7 +103,7 @@
       Random Contact
     </button>
   </form>
-
+  <button (click)="export()">GET PDF</button>
   </div>
   <!-- <app-choose-language></app-choose-language> -->
 </div>

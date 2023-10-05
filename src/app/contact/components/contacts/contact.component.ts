@@ -6,6 +6,7 @@ import { NameFilterPipe } from '../../../name-filter.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { EditContactDialogComponent } from '../edit-contact-dialog/edit-contact-dialog.component';
 import { FormGroup, FormControl } from '@angular/forms';
+import { PdfExportService } from 'src/app/pdf-export.service';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -34,7 +35,7 @@ export class ContactComponent {
     'delete',
     'edit',
   ];
-  constructor(private contactService: ContactService , public dialog: MatDialog , private afs  : AngularFirestore) {}
+  constructor(private contactService: ContactService , public dialog: MatDialog , private afs  : AngularFirestore , private exportService :  PdfExportService ) {}
   searchQuery: string = '';
   ngOnInit(): void {
     this.contactService.getContacts().subscribe((contacts: Contact[]) => {
@@ -65,12 +66,10 @@ export class ContactComponent {
   deleteContact(contact: Contact): void {
     this.contactService.deleteContact(contact);
   }
-  // editContact(contact: Contact): void {
-  //   contact.isEditing = true;
-  // }
-  // onCellBlur(contact: Contact): void {
-  //   contact.isEditing = false;
-  // }
+
+  export(){
+    this.exportService.export(this.contacts)
+  }
   openDialog(contactData: any): void {
     if (contactData) {
       console.log("contactData", contactData);
