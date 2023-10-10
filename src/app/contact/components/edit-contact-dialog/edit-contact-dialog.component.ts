@@ -31,11 +31,13 @@ export class EditContactDialogComponent {
 saveChanges() {
   console.log("this.contact" , this.selectedOne)
   const updatedContact = {
+    // id: this.data.id
     name: this.data.name,
     email: this.data.email,
     phone: this.data.phone
   };
   console.log("this.selectedOne.id" , this.selectedOne.id)
+  this.contactsCollection.doc(this.selectedOne.id).update(updatedContact)
   // this.contactsCollection.doc(this.selectedOne.id).update(updatedContact).then(()=>{
   //   console.log("done")
   // })

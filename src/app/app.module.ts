@@ -31,8 +31,14 @@ import { ErrorPageComponent } from './errorPage/error-page/error-page.component'
 import { SigninComponent } from './signIn/signin/signin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslocoRootModule } from './transloco-root.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
 import { ChooseLanguageComponent } from './choose-language/choose-language.component';
+export const HttpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http);
+
 const translocoConfig = {
   availableLangs: ['en', 'fr'],
   defaultLang: 'en',
@@ -70,7 +76,15 @@ const translocoConfig = {
     TranslocoModule,
     
   ],
-  providers: [{ provide: TRANSLOCO_CONFIG, useValue: translocoConfig  },],
+  providers: [{
+    provide: TRANSLOCO_CONFIG,
+    useValue: {
+      availableLangs: ['en', 'de'], // Add your supported languages here
+      defaultLang: 'en', // Set the default language
+      reRenderOnLangChange: true,
+      prodMode: false, // Set this to true in production
+    },
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

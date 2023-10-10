@@ -75,6 +75,7 @@ export class ContactComponent {
       console.log("contactData", contactData);
       const dialogRef = this.dialog.open(EditContactDialogComponent, {
         data: {
+            id:contactData.id,
             name: contactData.name , 
             email: contactData.email, 
             phone: contactData.phone,
@@ -84,6 +85,7 @@ export class ContactComponent {
 
       });
       this.selectedOne = contactData,
+      console.log(contactData)
       dialogRef.componentInstance.onSave.subscribe((updatedContact) => {
       });
     }
